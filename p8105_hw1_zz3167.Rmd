@@ -5,26 +5,51 @@ date: "2023-09-18"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Problem 1
+
+#### Load the package
+
+```{r, echo=TRUE, message=FALSE}
+library(moderndive)
+library(tidyverse)
 ```
 
-## R Markdown
+#### Load the `early_january_weather` dataset
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+data("early_january_weather")
 ```
 
-## Including Plots
+#### Description of the "early_january_weather" dataset
 
-You can also embed plots, for example:
+Below we describe the dataset including names / values of important variables, the size of the dataset, and the mean temperature:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+* The variable names of the early_january_weather dataset are `r names(early_january_weather)`.
+
+* There are `r nrow(early_january_weather)` observations and `r ncol(early_january_weather)` variables in this dataset. 
+
+* The means temperature is `r round(mean(early_january_weather$temp, na.rm = TRUE),2)`.
+
+#### Make a scatterplot of `temp` (y) vs `time_hour` (x)
+
+```{r}
+ggplot(early_january_weather, aes(x = time_hour, y = temp, colour = humid)) + geom_point() + labs(x = 'Time (h)', y = 'Temperature (F)', title = 'Scatter Plot of Temperature and Humidity')
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#### Describe the patterns that are apparent in this plot
+
+* Overall, with the increase of time, the temperature shows an increasing trend.
+* Specific to a single day, the temperature is highest at noon and lowest at night.
+* Specific to a single day, humidity decreases as the temperature rises.
+
+#### Export the scatterplot to the project directory using ggsave
+
+```{r, message=FALSE}
+ggsave("time_temp_scatter.png")
+```
+
+
+
+
+
