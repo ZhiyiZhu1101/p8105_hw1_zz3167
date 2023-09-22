@@ -50,6 +50,48 @@ ggsave("time_temp_scatter.png")
 ```
 
 
+## Problem 2
 
+#### Create a data frame 
+
+The data frame comprised of:
+
+* a random sample of size 10 from a standard Normal distribution
+* a logical vector indicating whether elements of the sample are greater than 0
+* a character vector of length 10
+* a factor vector of length 10, with 3 different factor “levels”
+
+```{r}
+random_sample = rnorm(10)
+vec_logical = random_sample > 0
+vec_character =  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+vec_factor = factor(rep(c("Excellent", "Good", "Pass"), length.out = 10))
+
+Prob2_data = data.frame(RS = random_sample,
+                        Logical = vec_logical,
+                        Character = vec_character,
+                        Factor = vec_factor
+                        )
+print(Prob2_data)
+```
+
+#### Calculate the mean of each variable
+
+The mean of the `random_sample` is `r mean(pull(Prob2_data, RS))`.  
+The mean of the `vec_logical` is `r mean(pull(Prob2_data, Logical))`.  
+The mean of the `vec_character` is `r mean(pull(Prob2_data, Character))`.  
+The mean of the `vec_factor` is `r mean(pull(Prob2_data, Factor))`.
+
+According to the result, We can calculate the mean of `random_sample` and `vec_logical`, but the mean of `vec_character` and `vec_factor` cannot be calculated.
+
+#### Convert variables to another types
+
+Below we convert logical, character, and factor variables to numeric
+
+```{r}
+num_logical = as.numeric(pull(Prob2_data, Logical))
+num_character = as.numeric(pull(Prob2_data, Character))
+num_factor = as.numeric(pull(Prob2_data, Factor))
+```
 
 
